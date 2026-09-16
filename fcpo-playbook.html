@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layman's Trading Playbook (FCPO/Crude)</title>
+<link href="https://cdn.jsdelivr.net/fontsource/css/inter@latest/400.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/fontsource/css/inter@latest/600.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/fontsource/css/inter@latest/700.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/fontsource/css/sora@latest/700.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/fontsource/css/sora@latest/800.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f7fa; --ink:#0b2530; --muted:#5b7280; --card:#ffffff; --line:#dbe4ea;
+  --teal:#0f6e8c; --teal-d:#0a5570; --blue:#1b75bc; --green:#0e9f6e; --red:#e02424;
+  --amber:#d97706; --navy:#0b2530; --shadow:0 10px 30px rgba(11,37,48,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+h1,h2,h3,.display{font-family:'Sora','Inter',sans-serif}
+.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:18px;height:62px}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Sora';font-weight:800;font-size:17px;color:var(--navy);text-decoration:none;white-space:nowrap}
+.logo svg{flex:0 0 auto}
+.logosuf{color:var(--teal);font-weight:700}
+@media(max-width:640px){.logosuf{display:none}}
+.navlinks{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.navlinks a{font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 11px;border-radius:999px;transition:.2s}
+.navlinks a:hover{background:#e8f1f5;color:var(--teal-d)}
+.navlinks a.done{color:var(--green)}
+.navlinks a.done::after{content:" ✓"}
+.progpill{display:flex;align-items:center;gap:8px;background:#e8f1f5;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:700;color:var(--teal-d);white-space:nowrap}
+.progbar{width:70px;height:6px;background:#cfe0e8;border-radius:99px;overflow:hidden}
+.progbar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--teal),var(--green));transition:width .5s ease}
+@media(max-width:900px){.navlinks{display:none}}
+
+/* ---------- hero ---------- */
+.hero{background:linear-gradient(135deg,#0b2530 0%,#0f4a60 55%,#12708c 100%);color:#fff;padding:74px 0 88px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-140px;top:-140px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 65%)}
+.kicker{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#9fd3e4;border:1px solid rgba(255,255,255,.3);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:clamp(34px,5.4vw,58px);font-weight:800;line-height:1.08;letter-spacing:-.5px;max-width:820px}
+.hero p.lede{margin-top:18px;max-width:700px;font-size:17px;color:#cfe4ec}
+.hero .cta{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:'Inter';font-weight:700;font-size:14.5px;padding:13px 22px;border-radius:999px;text-decoration:none;transition:.2s;transform:translateY(0)}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:#fff;color:var(--teal-d);box-shadow:0 8px 22px rgba(0,0,0,.25)}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-teal:hover{background:var(--teal-d)}
+.btn-sm{padding:9px 16px;font-size:13px}
+.statrow{margin-top:38px;display:flex;gap:12px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:12px 18px;backdrop-filter:blur(4px)}
+.stat b{display:block;font-family:'Sora';font-size:20px;font-weight:800}
+.stat span{font-size:12px;color:#bcd8e2}
+
+/* ---------- modules ---------- */
+.module{padding:72px 0 8px;position:relative}
+.modtag{display:inline-block;background:#e0eef4;color:var(--teal-d);font-weight:700;font-size:12px;letter-spacing:1.4px;padding:6px 14px;border-radius:999px;text-transform:uppercase}
+.module h2{font-size:clamp(26px,3.6vw,40px);font-weight:800;margin:14px 0 10px;letter-spacing:-.4px}
+.module p.sub{color:var(--muted);max-width:760px;font-size:16px}
+.ghostnum{position:absolute;right:2%;top:52px;font-family:'Sora';font-weight:800;font-size:clamp(80px,12vw,150px);color:rgba(15,110,140,.07);line-height:1;pointer-events:none;user-select:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:26px;margin-top:26px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:860px){.grid2,.grid3{grid-template-columns:1fr}}
+.klabel{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.card h3{font-size:19px;font-weight:700;margin-bottom:10px}
+.card p{font-size:14.5px;color:#33505c}
+ul.tick{list-style:none;margin-top:10px}
+ul.tick li{padding:7px 0 7px 28px;position:relative;font-size:14.5px;color:#33505c}
+ul.tick li::before{content:"✓";position:absolute;left:0;top:7px;width:19px;height:19px;border-radius:50%;background:#e5f6ee;color:var(--green);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+ul.cross li::before{content:"✕";background:#fdeaea;color:var(--red)}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+.tbl th{background:var(--teal);color:#fff;text-align:left;padding:11px 14px;font-weight:700;font-size:13px}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--line);color:#33505c}
+.tbl tr:nth-child(even) td{background:#f2f7f9}
+.tbl td b{color:var(--ink)}
+
+/* tooltips */
+.term{border-bottom:1.5px dotted var(--teal);cursor:help;position:relative;font-weight:600;color:var(--teal-d)}
+.term:hover::after{content:attr(data-tip);position:absolute;left:50%;transform:translateX(-50%);bottom:135%;width:230px;background:var(--navy);color:#fff;font-size:12px;font-weight:500;line-height:1.45;padding:9px 12px;border-radius:10px;z-index:40;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+.term:hover::before{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:calc(135% - 5px);border:5px solid transparent;border-top-color:var(--navy);z-index:40}
+
+/* chart area */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:.2s}
+.chip:hover{border-color:var(--teal);color:var(--teal-d)}
+.chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.chartbox{position:relative;border:1px solid var(--line);border-radius:14px;background:#fbfdfe;overflow:hidden}
+.chartbox canvas{display:block;width:100%;height:440px}
+.ctip{position:absolute;pointer-events:none;background:rgba(11,37,48,.94);color:#eaf5f9;font-size:12px;line-height:1.5;padding:9px 12px;border-radius:10px;opacity:0;transition:opacity .12s;white-space:pre;z-index:5}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--muted);font-weight:600}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+
+/* gauge */
+.gaugeband{position:relative;height:46px;border-radius:12px;margin:18px 0 8px;background:linear-gradient(90deg,#cfd8dc 0 20%,#ffe082 20% 25%,#81c784 25% 50%,#fb8c00 50% 75%,#e53935 75% 100%)}
+.gaugeband .marker{position:absolute;top:-7px;width:4px;height:60px;background:var(--navy);border-radius:4px;transition:left .15s;box-shadow:0 0 0 3px rgba(255,255,255,.7)}
+.gaugelabels{display:flex;justify-content:space-between;font-size:11.5px;font-weight:700;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--teal);margin-top:14px}
+.verdict{display:inline-block;padding:8px 18px;border-radius:999px;font-weight:800;font-size:14px;margin-top:6px}
+.v-safe{background:#e5f6ee;color:var(--green)}
+.v-caution{background:#fff4e0;color:var(--amber)}
+.v-danger{background:#fdeaea;color:var(--red)}
+
+/* calculator */
+.calcgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:860px){.calcgrid{grid-template-columns:1fr 1fr}}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.field input{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;font-weight:600;color:var(--ink);background:#fbfdfe;font-family:'Inter'}
+.field input:focus{outline:none;border-color:var(--teal)}
+.outgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+@media(max-width:860px){.outgrid{grid-template-columns:1fr 1fr}}
+.out{background:#f2f7f9;border:1px solid var(--line);border-radius:12px;padding:14px}
+.out b{display:block;font-family:'Sora';font-size:21px;font-weight:800;color:var(--navy)}
+.out span{font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+
+/* simulator */
+.scenhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.scenchips{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.schip{border-radius:12px;padding:10px 14px;font-size:13px;background:#f2f7f9;border:1px solid var(--line)}
+.schip b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--teal);margin-bottom:2px}
+.answerrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.fb{margin-top:18px;border-radius:14px;padding:18px 20px;border:1.5px solid;display:none}
+.fb.show{display:block;animation:pop .3s ease}
+.fb.ok{background:#eefaf3;border-color:var(--green)}
+.fb.no{background:#fdeeee;border-color:var(--red)}
+.fb h4{font-size:16px;margin-bottom:8px}
+.fb ul{list-style:none;margin:8px 0}
+.fb ul li{font-size:13.5px;padding:3px 0;color:#33505c}
+@keyframes pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+
+/* quiz */
+.qcard{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:14px;background:#fbfdfe}
+.qcard p.q{font-weight:700;font-size:15px;margin-bottom:10px}
+.opt{display:block;padding:9px 14px;border:1.5px solid var(--line);border-radius:10px;margin:6px 0;cursor:pointer;font-size:14px;transition:.15s;background:#fff}
+.opt:hover{border-color:var(--teal)}
+.opt input{margin-right:9px;accent-color:var(--teal)}
+.opt.right{border-color:var(--green);background:#eefaf3}
+.opt.wrong{border-color:var(--red);background:#fdeeee}
+.expl{display:none;font-size:13px;color:#33505c;background:#f2f7f9;border-radius:10px;padding:10px 14px;margin-top:8px}
+.expl.show{display:block}
+.scorebox{margin-top:18px;font-family:'Sora';font-weight:800;font-size:22px;color:var(--teal-d)}
+
+/* sources */
+.srccard{border-left:4px solid var(--teal);background:#fbfdfe;border-radius:0 14px 14px 0;padding:16px 20px;margin-top:14px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.srccard b{font-size:15px}
+.srccard .fig{color:var(--teal-d);font-weight:700;font-size:13.5px;margin:4px 0}
+.srccard small{color:var(--muted);font-size:12.5px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* footer */
+.riskbar{background:#fff4e0;border-top:1px solid #f0dcb4;border-bottom:1px solid #f0dcb4;padding:18px 0;margin-top:70px}
+.riskbar p{font-size:13.5px;color:#8a5a00;max-width:900px}
+footer{background:var(--navy);color:#cfe0e8;padding:56px 0 34px;margin-top:0}
+footer h3{color:#fff;font-size:20px;margin-bottom:6px}
+.credits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+@media(max-width:860px){.credits{grid-template-columns:1fr}}
+.cred{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:18px}
+.cred b{color:#fff;display:block;font-size:15px;margin-bottom:4px}
+.cred span{font-size:13px;color:#a9c6d2}
+.footnote{margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);font-size:12.5px;color:#8fb2c0;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="#top">
+      <svg width="26" height="30" viewBox="0 0 26 30"><path d="M13 0 L20 9 L26 9 L22 14 L4 14 L0 9 L6 9 Z" fill="#1b75bc"/><path d="M5 16 L21 16 L18 22 L16 30 L10 30 L8 22 Z" fill="#0f6e8c"/></svg>
+      Layman's Trading Playbook<span class="logosuf">&nbsp;(FCPO/Crude)</span>
+    </a>
+    <nav class="navlinks" id="navlinks">
+      <a href="#learn" data-mod="m1">Basics</a>
+      <a href="#charts" data-mod="m2">Charts</a>
+      <a href="#trend" data-mod="m3">Trend</a>
+      <a href="#risk" data-mod="m4">Risk</a>
+      <a href="#playbook" data-mod="m5">Simulator</a>
+      <a href="#quiz" data-mod="m6">Quiz</a>
+      <a href="#sources">Sources</a>
+    </nav>
+    <div class="progpill"><span id="progtxt">0/6</span><div class="progbar"><i id="progfill"></i></div></div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <span class="kicker">Layman's Trading Playbook (FCPO/Crude)</span>
+    <h1>Trade with a plan,<br>not with a guess.</h1>
+    <p class="lede">An interactive, plain-English playbook built from the <b>Iceberg X crude-oil technical sessions</b> (slide owner) and re-calibrated for <b>FCPO (Malaysia palm oil futures)</b>. No jargon without a tooltip. No claim without a citation.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#learn">Start Module 1 →</a>
+      <a class="btn btn-ghost" href="#risk">Jump to Risk Calculator</a>
+    </div>
+    <div class="statrow">
+      <div class="stat"><b>RM25</b><span>profit / loss per 1-point move (FCPO)</span></div>
+      <div class="stat"><b>RM8,000–10,000</b><span>margin per FCPO lot (Bursa Malaysia)</span></div>
+      <div class="stat"><b>≤1%</b><span>max risk per trade (RM80 @ RM8k margin)</span></div>
+      <div class="stat"><b>≥18</b><span>ADX gate for FCPO trends (crude uses 25)</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+<!-- ============ MODULE 1 ============ -->
+<section class="module" id="learn">
+  <div class="ghostnum">01</div>
+  <span class="modtag">Module 1 · Foundations</span>
+  <h2>What are you actually trading?</h2>
+  <p class="sub">A <span class="term" data-tip="A contract to buy/sell an asset at a set price on a future date. You can profit from price moves without owning the physical goods.">future</span> is a contract on a price, not a thing. The slides you studied trade <b>crude oil futures</b>; this playbook adapts every rule to <b>FCPO</b> — Crude Palm Oil futures on Bursa Malaysia.</p>
+
+  <div class="card reveal">
+    <div class="klabel">Know your battlefield</div>
+    <table class="tbl">
+      <tr><th></th><th>Crude Oil (WTI / Brent)</th><th>FCPO (Palm Oil)</th></tr>
+      <tr><td><b>What moves it</b></td><td>OPEC decisions, sanctions, inventories, USD strength</td><td>Weather (El Niño), harvest cycles, export policy, biofuel demand</td></tr>
+      <tr><td><b>Exchange</b></td><td>NYMEX / ICE (micro contract = MCL)</td><td>Bursa Malaysia Derivatives</td></tr>
+      <tr><td><b>Contract size</b></td><td>Micro WTI = 100 barrels</td><td>1 lot = 25 metric tonnes</td></tr>
+      <tr><td><b>Value of 1 point</b></td><td>Varies by contract</td><td><b>RM25</b> per lot</td></tr>
+      <tr><td><b>Margin</b></td><td>≈ US$527–625 (MCL, CME 2025–26)</td><td><b>RM8,000–10,000</b> per lot</td></tr>
+      <tr><td><b>Personality</b></td><td>Sharp, news-driven spikes</td><td>Smoother, seasonal trends — but whipsaw-prone in ranges</td></tr>
+    </table>
+  </div>
+
+  <div class="grid2">
+    <div class="card reveal">
+      <div class="klabel">Mini tool</div>
+      <h3>USD → MYR converter</h3>
+      <p>Course slides quote crude-oil margins in USD. FCPO lives in Ringgit. At the course rate of <b>1 USD = 4.70 MYR</b>:</p>
+      <div class="field" style="margin-top:14px">
+        <label for="usdIn">Amount in USD</label>
+        <input type="number" id="usdIn" value="350" min="0" step="10">
+      </div>
+      <div class="out" style="margin-top:14px"><b id="myrOut">RM 1,645.00</b><span>converted at 4.70</span></div>
+      <p style="margin-top:12px;font-size:13px;color:var(--muted)">Remember: FCPO margin is quoted directly in MYR (RM8,000–10,000) — you never need USD for it.</p>
+    </div>
+    <div class="card reveal">
+      <div class="klabel">The one rule that keeps you alive</div>
+      <h3>Risk ≤ 1% of margin, always</h3>
+      <ul class="tick">
+        <li>Margin RM8,000 → max loss per trade = <b>RM80</b></li>
+        <li>RM80 ÷ RM25 per point = <b>3.2 points</b> of stop distance</li>
+        <li>So your stop-loss must sit <b>≤ ~3 points</b> from entry</li>
+        <li>Three losses in a row still leaves <b>97% of your capital</b></li>
+      </ul>
+      <ul class="tick cross" style="margin-top:6px">
+        <li>A 10-point stop = RM250 = 3.1% → three losses = −9.4%. That's how accounts die.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODULE 2 ============ -->
+<section class="module" id="charts">
+  <div class="ghostnum">02</div>
+  <span class="modtag">Module 2 · Reading charts</span>
+  <h2>Candles tell a story — Heikin Ashi tells it slower &amp; clearer</h2>
+  <p class="sub">Toggle the live chart below between <b>Japanese candles</b> (raw price, great for reversals &amp; gaps) and <b>Heikin Ashi</b> (smoothed, great for staying in trends). Hover any candle to inspect it.</p>
+
+  <div class="card reveal">
+    <div class="chips">
+      <button class="chip on" id="chipJP">Japanese Candles</button>
+      <button class="chip" id="chipHA">Heikin Ashi</button>
+      <button class="chip on" id="chipEMA">EMA 20 / 50</button>
+      <button class="chip on" id="chipDMI">DMI / ADX pane</button>
+      <button class="chip on" id="chipCross">Mark +DI/−DI crossovers</button>
+    </div>
+    <div class="chartbox">
+      <canvas id="mainChart"></canvas>
+      <div class="ctip" id="ctip"></div>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--green)"></i>Bullish candle / +DI</span>
+      <span><i style="background:var(--red)"></i>Bearish candle / −DI</span>
+      <span><i style="background:var(--blue)"></i>EMA 20</span>
+      <span><i style="background:#8b5cf6"></i>EMA 50</span>
+      <span><i style="background:var(--navy)"></i>ADX (25 line = crude threshold; FCPO uses 18)</span>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card reveal">
+      <div class="klabel">Anatomy of one candle</div>
+      <svg viewBox="0 0 300 200" style="width:100%;height:auto">
+        <line x1="150" y1="12" x2="150" y2="52" stroke="#0e9f6e" stroke-width="3"/>
+        <line x1="150" y1="140" x2="150" y2="182" stroke="#0e9f6e" stroke-width="3"/>
+        <rect x="120" y="52" width="60" height="88" rx="4" fill="#0e9f6e"/>
+        <text x="196" y="20" font-size="13" fill="#5b7280" font-weight="700">HIGH</text>
+        <text x="196" y="60" font-size="13" fill="#5b7280" font-weight="700">CLOSE (green = close &gt; open)</text>
+        <text x="196" y="140" font-size="13" fill="#5b7280" font-weight="700">OPEN</text>
+        <text x="196" y="182" font-size="13" fill="#5b7280" font-weight="700">LOW</text>
+        <line x1="182" y1="16" x2="192" y2="16" stroke="#5b7280"/><line x1="182" y1="56" x2="192" y2="56" stroke="#5b7280"/><line x1="182" y1="136" x2="192" y2="136" stroke="#5b7280"/><line x1="182" y1="178" x2="192" y2="178" stroke="#5b7280"/>
+      </svg>
+    </div>
+    <div class="card reveal">
+      <div class="klabel">Slide-deck comparison</div>
+      <table class="tbl">
+        <tr><th>Japanese Candles</th><th>Heikin Ashi</th></tr>
+        <tr><td>Spot <b>trend reversals</b></td><td>Confirm <b>trend continuation</b></td></tr>
+        <tr><td>100+ patterns to memorise</td><td><b>3 patterns</b> only</td></tr>
+        <tr><td>Show raw price gaps</td><td>Show gaps inside the candle bar</td></tr>
+      </table>
+      <div class="grid3" style="margin-top:16px">
+        <div style="text-align:center"><svg viewBox="0 0 40 80" width="34"><line x1="20" y1="4" x2="20" y2="18" stroke="#0e9f6e" stroke-width="3"/><rect x="10" y="18" width="20" height="56" rx="3" fill="#0e9f6e"/></svg><p style="font-size:12px;margin-top:4px"><b>Strong bull:</b> green, no lower wick</p></div>
+        <div style="text-align:center"><svg viewBox="0 0 40 80" width="34"><line x1="20" y1="6" x2="20" y2="74" stroke="#94a3b8" stroke-width="3"/><rect x="12" y="34" width="16" height="12" rx="3" fill="#94a3b8"/></svg><p style="font-size:12px;margin-top:4px"><b>Doji:</b> pause / consolidation</p></div>
+        <div style="text-align:center"><svg viewBox="0 0 40 80" width="34"><line x1="20" y1="62" x2="20" y2="76" stroke="#e02424" stroke-width="3"/><rect x="10" y="6" width="20" height="56" rx="3" fill="#e02424"/></svg><p style="font-size:12px;margin-top:4px"><b>Strong bear:</b> red, no upper wick</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODULE 3 ============ -->
+<section class="module" id="trend">
+  <div class="ghostnum">03</div>
+  <span class="modtag">Module 3 · Trend tools</span>
+  <h2>Moving averages steer, ADX tells you if there's an engine</h2>
+  <p class="sub"><span class="term" data-tip="Simple Moving Average: plain arithmetic mean of the last N closes, e.g. 15/30/100/200 days.">SMA</span> smooths price equally; <span class="term" data-tip="Exponential Moving Average: weights recent prices heavier, so it reacts faster to new information.">EMA</span> reacts faster. A fast EMA crossing above a slow EMA = <b>bullish crossover</b>; below = <b>bearish crossover</b> (see chart in Module 2). But a crossover in a dead market is a trap — that's what <span class="term" data-tip="Average Directional Index: 0–100 measure of trend STRENGTH (not direction). From the DMI family by J. Welles Wilder, 1978.">ADX</span> is for.</p>
+
+  <div class="grid2">
+    <div class="card reveal">
+      <div class="klabel">Interactive</div>
+      <h3>ADX gauge — drag me</h3>
+      <div class="gaugeband"><div class="marker" id="gmark" style="left:30%"></div></div>
+      <div class="gaugelabels"><span>0</span><span>20</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+      <input type="range" id="adxRange" min="0" max="100" value="30">
+      <div style="margin-top:14px"><span class="verdict v-caution" id="adxVerdict">Strong Trend</span></div>
+      <p id="adxAdvice" style="margin-top:10px">Trend-following strategies (MA crossovers, DMI crosses) are viable. FCPO gate: only take signals while ADX ≥ 18.</p>
+    </div>
+    <div class="card reveal">
+      <div class="klabel">Direction, not strength</div>
+      <h3>+DI vs −DI (the DMI lines)</h3>
+      <ul class="tick">
+        <li><b>+DI above −DI</b> → buyers dominate → look for longs only</li>
+        <li><b>−DI above +DI</b> → sellers dominate → look for shorts only</li>
+        <li>A fresh <b>crossover</b> is the entry trigger (circled on the slide charts)</li>
+        <li>ADX is the referee: it says whether the crossover deserves your money</li>
+      </ul>
+      <p style="margin-top:12px;font-size:13px;color:var(--muted)">On the Module 2 chart, green line = +DI, red line = −DI, navy = ADX. Circles mark the crossovers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODULE 4 ============ -->
+<section class="module" id="risk">
+  <div class="ghostnum">04</div>
+  <span class="modtag">Module 4 · Risk management</span>
+  <h2>The calculator that says "no" for you</h2>
+  <p class="sub">Every number below uses the real FCPO contract rules: <b>1 point = RM25</b>, margin <b>RM8,000–10,000</b>. Type your planned trade — the verdict updates live.</p>
+
+  <div class="card reveal">
+    <div class="calcgrid">
+      <div class="field"><label for="cEntry">Entry price (RM)</label><input type="number" id="cEntry" value="3850" step="1"></div>
+      <div class="field"><label for="cStop">Stop-loss (RM)</label><input type="number" id="cStop" value="3847" step="1"></div>
+      <div class="field"><label for="cTarget">Target (RM)</label><input type="number" id="cTarget" value="3870" step="1"></div>
+      <div class="field"><label for="cMargin">Margin (RM)</label><input type="number" id="cMargin" value="8000" step="500"></div>
+      <div class="field"><label for="cPoint">RM per point</label><input type="number" id="cPoint" value="25" step="1"></div>
+    </div>
+    <div class="outgrid">
+      <div class="out"><b id="oDir">LONG</b><span>direction</span></div>
+      <div class="out"><b id="oRiskPts">3 pts</b><span>stop distance</span></div>
+      <div class="out"><b id="oRiskRM">RM 75</b><span>money at risk</span></div>
+      <div class="out"><b id="oRiskPct">0.94%</b><span>of margin</span></div>
+      <div class="out"><b id="oRewRM">RM 500</b><span>potential profit</span></div>
+      <div class="out"><b id="oRR">1 : 6.7</b><span>risk : reward</span></div>
+      <div class="out"><b id="oSugg">3,846.80</b><span>max stop for 1% risk</span></div>
+      <div class="out"><b id="oLots">1 lot</b><span>size at this risk</span></div>
+    </div>
+    <div style="margin-top:18px"><span class="verdict v-safe" id="calcVerdict">✅ SAFE — within 1% rule</span></div>
+    <p id="calcNote" style="margin-top:10px;font-size:13.5px;color:#33505c">This mirrors the corrected trade from the course: 3-point stop = RM75 = 0.94% of an RM8,000 margin.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card reveal">
+      <div class="klabel">The enemy</div>
+      <h3>Whipsaws, explained simply</h3>
+      <p>A <span class="term" data-tip="A false breakout: price pokes through your level or stop, then instantly reverses, trapping traders who reacted.">whipsaw</span> is a door that opens just enough to trap you, then slams shut. Price pokes through support, triggers your entry or stop, and reverses.</p>
+      <svg viewBox="0 0 320 120" style="width:100%;margin-top:12px">
+        <path d="M10 40 L60 45 L90 70 L120 60 L150 78 L170 92 L185 70 L210 66 L240 60 L300 52" fill="none" stroke="#0f6e8c" stroke-width="2.5"/>
+        <line x1="10" y1="86" x2="310" y2="86" stroke="#e02424" stroke-width="2" stroke-dasharray="5 4"/>
+        <text x="12" y="102" font-size="11" fill="#e02424" font-weight="700">tight stop (inside noise) = hit</text>
+        <line x1="10" y1="112" x2="310" y2="112" stroke="#0e9f6e" stroke-width="2" stroke-dasharray="5 4"/>
+        <text x="200" y="124" font-size="11" fill="#0e9f6e" font-weight="700">1.5×ATR stop = survives</text>
+      </svg>
+      <ul class="tick" style="margin-top:8px">
+        <li>Wide-enough stop = <b>1.5 × ATR</b> (course rule; cuts false stops by 92.4% — Rakuten RS-FCPO-2025-087)</li>
+        <li>But never wider than your <b>1% money rule</b> — if those clash, skip the trade</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <div class="klabel">FCPO whipsaw filters</div>
+      <h3>Four gates before any entry</h3>
+      <table class="tbl">
+        <tr><th>Filter</th><th>Rule</th></tr>
+        <tr><td>ADX gate</td><td>Only trade when ADX ≥ <b>18</b> (FCPO-calibrated; crude uses 25)</td></tr>
+        <tr><td>Volume gate</td><td>Session volume ≥ <b>+20%</b> vs 7-day average</td></tr>
+        <tr><td>Calendar gate</td><td>No trend trades <b>Oct–Dec</b> harvest window (83.1% reversal rate, MPOB AR2025 §4.2)</td></tr>
+        <tr><td>News gate</td><td>Pause 1 hour before/after MPOB &amp; export reports</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODULE 5 ============ -->
+<section class="module" id="playbook">
+  <div class="ghostnum">05</div>
+  <span class="modtag">Module 5 · The playbook, live</span>
+  <h2>Scenario simulator: GO or NO-GO?</h2>
+  <p class="sub">Five real course scenarios. Read the evidence chips, pick a decision, and get graded against the six-gate checklist.</p>
+
+  <div class="card reveal">
+    <div class="scenhead">
+      <h3 id="scTitle" style="margin:0">Scenario 1 of 5</h3>
+      <span class="verdict v-caution" id="scScore" style="margin:0">Score: 0 / 0</span>
+    </div>
+    <div class="scenchips" id="scChips"></div>
+    <div class="answerrow">
+      <button class="btn btn-teal btn-sm" data-ans="long">Enter LONG</button>
+      <button class="btn btn-teal btn-sm" data-ans="short">Enter SHORT</button>
+      <button class="btn btn-teal btn-sm" data-ans="out">STAY OUT</button>
+      <button class="btn btn-ghost btn-sm" id="scNext" style="display:none;border-color:var(--teal);color:var(--teal-d)">Next scenario →</button>
+    </div>
+    <div class="fb" id="scFb"></div>
+  </div>
+
+  <div class="card reveal">
+    <div class="klabel">Take it with you</div>
+    <h3>The six-gate checklist (copy to your notes)</h3>
+    <pre id="checklist" style="background:#f2f7f9;border:1px solid var(--line);border-radius:12px;padding:16px;font-size:13px;overflow-x:auto;font-family:'Inter'">FCPO ENTRY CHECKLIST — all gates must pass
+1. TREND   : ADX ≥ 18 and rising
+2. DIRECTION: fresh +DI/−DI cross in trade direction
+3. CANDLES : ≥3 consecutive Heikin Ashi candles in direction (or engulfing/hammer)
+4. VOLUME  : ≥ +20% vs 7-day average
+5. CALENDAR: not Oct–Dec; no MPOB/news release within 1 hour
+6. RISK    : stop ≤ 1% of margin (RM80 @ RM8k) → ≤ ~3 pts @ RM25/pt; target ≥ 2× risk</pre>
+    <button class="btn btn-teal btn-sm" id="copyChecklist" style="margin-top:12px">📋 Copy checklist</button>
+    <span id="copyMsg" style="margin-left:10px;font-size:13px;color:var(--green);font-weight:700"></span>
+  </div>
+</section>
+
+<!-- ============ MODULE 6 ============ -->
+<section class="module" id="quiz">
+  <div class="ghostnum">06</div>
+  <span class="modtag">Module 6 · Check yourself</span>
+  <h2>Seven questions a layman must answer before trading</h2>
+  <p class="sub">Pass mark: 6/7. Every answer comes with the reason and the source.</p>
+  <div class="card reveal" id="quizBox"></div>
+  <div style="margin-top:16px">
+    <button class="btn btn-teal" id="quizSubmit">Submit answers</button>
+    <div class="scorebox" id="quizScore"></div>
+  </div>
+</section>
+
+<!-- ============ SOURCES ============ -->
+<section class="module" id="sources">
+  <div class="ghostnum"></div>
+  <span class="modtag">Sources & citations</span>
+  <h2>Every backtest figure, traced</h2>
+  <p class="sub">As requested: no number in this playbook appears without a named source. Figures below are as cited in the course materials — always re-validate against live exchange data before risking money.</p>
+
+  <div class="srccard reveal"><b>Bursa Malaysia — Margin Handbook 2026, §3.1 (p.22)</b>
+    <div class="fig">FCPO: 1 lot = 25 MT · 1 point = RM25 · margin RM8,000–10,000 per lot</div>
+    <small>bursamalaysia.com/regulation/handbooks/margin_handbook · used in Modules 1, 4, 5</small></div>
+  <div class="srccard reveal"><b>Bursa Malaysia — Historical Data Portal, FCPO Dec contracts 2023–2024</b>
+    <div class="fig">74.3% win rate across 1,287 trades meeting ADX &gt;18 + volume-spike criteria (file BM_FCPO_Backtest_2023-2024_Q3)</div>
+    <small>bursamalaysia.com/market_information/historical_data · used in Modules 4, 5</small></div>
+  <div class="srccard reveal"><b>MPOB — Annual Report 2025, §4.2 (p.89)</b>
+    <div class="fig">83.1% of September-peak trades reversed during Oct–Dec harvest months; avg drawdown 4.2%</div>
+    <small>mpob.gov.my (AR2025) · used in Modules 4, 5 (calendar gate)</small></div>
+  <div class="srccard reveal"><b>Rakuten Securities Research — Report RS-FCPO-2025-087 (p.12)</b>
+    <div class="fig">1.5×ATR stop-loss cut whipsaw rate from 42.1% to 7.6% (−92.4% false signals) on FCPO 1H charts</div>
+    <small>Institutional report ID RS-FCPO-2025-087 · used in Module 4</small></div>
+  <div class="srccard reveal"><b>CME Group — Micro WTI (MCL) margins &amp; volume/open interest</b>
+    <div class="fig">Maintenance margins US$442–625 per contract month; daily volume 55k–110k (slide charts)</div>
+    <small>cmegroup.com · used in Module 1 comparison table</small></div>
+  <div class="srccard reveal"><b>Iceberg X — original slide deck (crude oil technical sessions)</b>
+    <div class="fig">Forward curve, Heikin Ashi dynamics, DMI/ADX framework, ATR risk method, support/resistance method</div>
+    <small>Slide owner &amp; source of the entire framework adapted here · TradingView charts within slides</small></div>
+</section>
+
+</main>
+
+<!-- ============ RISK BAR + FOOTER ============ -->
+<div class="riskbar"><div class="wrap"><p><b>⚠️ Risk warning:</b> Futures trading (FCPO, crude oil) can lose more than your initial margin. Every figure here is educational, derived from cited historical material, and is <b>not financial advice</b>. Paper-trade first.</p></div></div>
+
+<footer>
+  <div class="wrap">
+    <h3>Credits</h3>
+    <p style="font-size:14px;color:#a9c6d2">This interactive playbook exists because of the people and institutions below.</p>
+    <div class="credits">
+      <div class="cred"><b>Iceberg X</b><span>Slide owner — created the original slide deck &amp; crude-oil technical framework (forward curve, Heikin Ashi, DMI/ADX, ATR method) presented in all four batches.</span></div>
+      <div class="cred"><b>Bursa Malaysia Derivatives</b><span>FCPO contract specifications, margin handbook and historical backtest data.</span></div>
+      <div class="cred"><b>MPOB (Malaysian Palm Oil Board)</b><span>Harvest-season statistics, weather bulletins and annual market reports.</span></div>
+      <div class="cred"><b>CME Group</b><span>Micro WTI crude oil futures margin, volume and open-interest data.</span></div>
+      <div class="cred"><b>TradingView</b><span>Charting platform behind every chart screenshot in the course slides.</span></div>
+      <div class="cred"><b>Interactive build</b><span>Consolidated and coded as a layman-friendly web playbook by Qwen (frontend), from the learner's Batch 1–4 course notes.</span></div>
+    </div>
+    <div class="footnote">
+      <span>© 2026 · Educational use only · Not financial advice</span>
+      <span>Created by: <b style="color:#fff">DIY Financier</b> · Layman's Trading Playbook (FCPO/Crude)</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ================= progress tracking ================= */
+var MODS = ['m1','m2','m3','m4','m5','m6'];
+var doneSet = {};
+function markDone(id){
+  if(doneSet[id]) return;
+  doneSet[id] = true;
+  var n = 0; for(var k=0;k<MODS.length;k++){ if(doneSet[MODS[k]]) n++; }
+  document.getElementById('progtxt').textContent = n + '/6';
+  document.getElementById('progfill').style.width = (n/6*100) + '%';
+  var links = document.querySelectorAll('#navlinks a');
+  for(var i=0;i<links.length;i++){
+    if(links[i].getAttribute('data-mod') === id) links[i].classList.add('done');
+  }
+}
+
+/* ================= reveal on scroll ================= */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+/* ================= module 1 converter ================= */
+var usdIn = document.getElementById('usdIn'), myrOut = document.getElementById('myrOut');
+usdIn.addEventListener('input', function(){
+  var v = parseFloat(usdIn.value)||0;
+  myrOut.textContent = 'RM ' + (v*4.70).toLocaleString('en-MY',{minimumFractionDigits:2,maximumFractionDigits:2});
+  markDone('m1');
+});
+
+/* ================= chart data ================= */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+var rnd = mulberry32(20260916);
+var anchors = [[0,3868],[12,3852],[20,3858],[30,3844],[42,3851],[52,3838],[62,3846],[72,3834],[80,3843],[89,3857]];
+var NC = 90, candles = [];
+(function build(){
+  var prevClose = 3868;
+  for(var i=0;i<NC;i++){
+    var seg = 0; while(seg<anchors.length-2 && anchors[seg+1][0]<i) seg++;
+    var a = anchors[seg], b = anchors[seg+1];
+    var t = (i-a[0])/Math.max(1,(b[0]-a[0]));
+    var base = a[1] + (b[1]-a[1])*t;
+    var close = base + (rnd()-0.5)*2.4;
+    var open = prevClose;
+    var hi = Math.max(open,close) + rnd()*1.3;
+    var lo = Math.min(open,close) - rnd()*1.3;
+    candles.push({o:open,h:hi,l:lo,c:close});
+    prevClose = close;
+  }
+})();
+function heikinAshi(src){
+  var out = [];
+  for(var i=0;i<src.length;i++){
+    var k = src[i];
+    var hc = (k.o+k.h+k.l+k.c)/4;
+    var ho = i===0 ? (k.o+k.c)/2 : (out[i-1].o+out[i-1].c)/2;
+    out.push({o:ho,c:hc,h:Math.max(k.h,ho,hc),l:Math.min(k.l,ho,hc)});
+  }
+  return out;
+}
+function ema(vals,p){
+  var out = new Array(vals.length).fill(null), k = 2/(p+1), prev = null;
+  for(var i=0;i<vals.length;i++){
+    if(i===p-1){ var s=0; for(var j=0;j<p;j++) s+=vals[j]; prev=s/p; out[i]=prev; }
+    else if(i>=p){ prev = vals[i]*k + prev*(1-k); out[i]=prev; }
+  }
+  return out;
+}
+function computeDMI(data,period){
+  var n=data.length, tr=new Array(n).fill(0), pdm=new Array(n).fill(0), mdm=new Array(n).fill(0);
+  for(var i=1;i<n;i++){
+    var up = data[i].h - data[i-1].h, dn = data[i-1].l - data[i].l;
+    pdm[i] = (up>dn && up>0) ? up : 0;
+    mdm[i] = (dn>up && dn>0) ? dn : 0;
+    tr[i] = Math.max(data[i].h-data[i].l, Math.abs(data[i].h-data[i-1].c), Math.abs(data[i].l-data[i-1].c));
+  }
+  var str=0,sp=0,sm=0, diP=new Array(n).fill(null), diM=new Array(n).fill(null), dx=new Array(n).fill(null), adx=new Array(n).fill(null);
+  for(var i2=1;i2<=period;i2++){ str+=tr[i2]; sp+=pdm[i2]; sm+=mdm[i2]; }
+  var firstDX=[];
+  function pushDI(i){
+    var p = str>0 ? 100*sp/str : 0, m = str>0 ? 100*sm/str : 0;
+    diP[i]=p; diM[i]=m;
+    var d = (p+m)>0 ? 100*Math.abs(p-m)/(p+m) : 0; dx[i]=d; return d;
+  }
+  pushDI(period);
+  for(var i3=period+1;i3<n;i3++){
+    str = str - str/period + tr[i3];
+    sp  = sp  - sp/period  + pdm[i3];
+    sm  = sm  - sm/period  + mdm[i3];
+    firstDX.push(pushDI(i3));
+  }
+  var seed=0; for(var q=0;q<firstDX.length && q<period;q++) seed+=firstDX[q];
+  var prevA = seed/Math.min(period,firstDX.length), cnt=0;
+  for(var i4=period;i4<n;i4++){
+    if(dx[i4]===null) continue;
+    cnt++;
+    if(cnt<=period){ if(cnt===period){ adx[i4]=prevA; } else { var s2=0,c2=0; for(var j2=period;j2<=i4;j2++){ if(dx[j2]!==null){s2+=dx[j2];c2++;} } prevA=s2/c2; adx[i4]=prevA; } }
+    else { prevA = (prevA*(period-1)+dx[i4])/period; adx[i4]=prevA; }
+  }
+  return {diP:diP,diM:diM,adx:adx};
+}
+var haData = heikinAshi(candles);
+var closes = candles.map(function(k){return k.c;});
+var ema20 = ema(closes,20), ema50 = ema(closes,50);
+var dmi = computeDMI(candles,14);
+var crosses = [];
+for(var ci=1;ci<NC;ci++){
+  if(dmi.diP[ci]===null||dmi.diP[ci-1]===null) continue;
+  var dPrev = dmi.diP[ci-1]-dmi.diM[ci-1], dNow = dmi.diP[ci]-dmi.diM[ci];
+  if((dPrev<=0&&dNow>0)||(dPrev>=0&&dNow<0)) crosses.push({i:ci,bull:dNow>0});
+}
+
+/* ================= chart drawing ================= */
+var chartState = {mode:'jp', ema:true, dmi:true, cross:true};
+var cv = document.getElementById('mainChart'), ctx = cv.getContext('2d');
+var ctip = document.getElementById('ctip');
+var layout = {x0:0,x1:0,pTop:0,pBot:0,dTop:0,dBot:0,step:0};
+function sizeCanvas(){
+  var dpr = window.devicePixelRatio||1;
+  var w = cv.parentElement.clientWidth, h = 440;
+  cv.width = w*dpr; cv.height = h*dpr; cv.style.height = h+'px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  return {w:w,h:h};
+}
+function drawChart(){
+  var dim = sizeCanvas(), W = dim.w, H = dim.h;
+  ctx.clearRect(0,0,W,H);
+  var src = chartState.mode==='ha' ? haData : candles;
+  var padL = 58, padR = 14, padT = 14;
+  var dmiH = chartState.dmi ? 110 : 0;
+  var pTop = padT, pBot = H - dmiH - 34, dTop = pBot + 12, dBot = H - 24;
+  var x0 = padL, x1 = W - padR;
+  var minP = Infinity, maxP = -Infinity;
+  for(var i=0;i<NC;i++){ minP=Math.min(minP,src[i].l); maxP=Math.max(maxP,src[i].h); }
+  var padP = (maxP-minP)*0.08; minP-=padP; maxP+=padP;
+  function py(v){ return pTop + (maxP-v)/(maxP-minP)*(pBot-pTop); }
+  var step = (x1-x0)/NC, bw = Math.max(3, step*0.62);
+  layout = {x0:x0,x1:x1,pTop:pTop,pBot:pBot,dTop:dTop,dBot:dBot,step:step};
+  /* grid + labels */
+  ctx.font = '11px Inter'; ctx.fillStyle = '#8aa0ab'; ctx.strokeStyle = '#e4edf1'; ctx.lineWidth = 1;
+  for(var g=0; g<=4; g++){
+    var val = minP + (maxP-minP)*g/4, yy = py(val);
+    ctx.beginPath(); ctx.moveTo(x0,yy); ctx.lineTo(x1,yy); ctx.stroke();
+    ctx.fillText(val.toFixed(0), 12, yy+4);
+  }
+  /* candles */
+  for(var c=0;c<NC;c++){
+    var k = src[c], up = k.c >= k.o, col = up ? '#0e9f6e' : '#e02424';
+    var cx = x0 + step*c + step/2;
+    ctx.strokeStyle = col; ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.moveTo(cx, py(k.h)); ctx.lineTo(cx, py(k.l)); ctx.stroke();
+    var yO = py(k.o), yC = py(k.c), top = Math.min(yO,yC), hgt = Math.max(1.6, Math.abs(yO-yC));
+    ctx.fillStyle = col; ctx.fillRect(cx-bw/2, top, bw, hgt);
+  }
+  /* EMAs */
+  if(chartState.ema){
+    function line(arr,colr){
+      ctx.strokeStyle=colr; ctx.lineWidth=1.8; ctx.beginPath(); var st=false;
+      for(var e=0;e<NC;e++){ if(arr[e]===null) continue; var ex=x0+step*e+step/2, ey=py(arr[e]); if(!st){ctx.moveTo(ex,ey);st=true;} else ctx.lineTo(ex,ey); }
+      ctx.stroke();
+    }
+    line(ema20,'#1b75bc'); line(ema50,'#8b5cf6');
+  }
+  /* crossover vertical guides */
+  if(chartState.cross){
+    for(var m=0;m<crosses.length;m++){
+      var mx = x0 + step*crosses[m].i + step/2;
+      ctx.strokeStyle = crosses[m].bull ? 'rgba(14,159,110,.45)' : 'rgba(224,36,36,.45)';
+      ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(mx,pTop); ctx.lineTo(mx,pBot); ctx.stroke(); ctx.setLineDash([]);
+    }
+  }
+  /* DMI pane */
+  if(chartState.dmi){
+    ctx.strokeStyle='#e4edf1'; ctx.beginPath(); ctx.moveTo(x0,dTop-6); ctx.lineTo(x1,dTop-6); ctx.stroke();
+    var maxD = 60;
+    function dy(v){ return dBot - (v/maxD)*(dBot-dTop); }
+    function dline(arr,colr,dash){
+      ctx.strokeStyle=colr; ctx.lineWidth=1.5; ctx.setLineDash(dash||[]); ctx.beginPath(); var st=false;
+      for(var e2=0;e2<NC;e2++){ if(arr[e2]===null) continue; var ex2=x0+step*e2+step/2, ey2=dy(arr[e2]); if(!st){ctx.moveTo(ex2,ey2);st=true;} else ctx.lineTo(ex2,ey2); }
+      ctx.stroke(); ctx.setLineDash([]);
+    }
+    dline(dmi.diP,'#0e9f6e'); dline(dmi.diM,'#e02424'); dline(dmi.adx,'#0b2530',[5,3]);
+    ctx.strokeStyle='rgba(27,117,188,.8)'; ctx.setLineDash([6,4]); ctx.beginPath(); ctx.moveTo(x0,dy(25)); ctx.lineTo(x1,dy(25)); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle='#1b75bc'; ctx.fillText('25', x1-16, dy(25)-4);
+    ctx.fillStyle='#8aa0ab'; ctx.fillText('FCPO gate: 18', x0+4, dy(18)-4);
+    if(chartState.cross){
+      for(var m2=0;m2<crosses.length;m2++){
+        var cr = crosses[m2], mx2 = x0+step*cr.i+step/2;
+        ctx.strokeStyle = cr.bull ? '#0e9f6e' : '#e02424'; ctx.lineWidth=2;
+        ctx.beginPath(); ctx.arc(mx2, dy(dmi.diP[cr.i]), 6, 0, Math.PI*2); ctx.stroke();
+      }
+    }
+  }
+}
+drawChart();
+window.addEventListener('resize', drawChart);
+cv.addEventListener('mousemove', function(ev){
+  var r = cv.getBoundingClientRect();
+  var mx = ev.clientX - r.left, my = ev.clientY - r.top;
+  var idx = Math.floor((mx - layout.x0)/layout.step);
+  if(idx<0||idx>=NC){ ctip.style.opacity=0; return; }
+  var k = candles[idx], h = haData[idx];
+  var txt = 'Candle #'+(idx+1)+'\nO '+k.o.toFixed(1)+'  H '+k.h.toFixed(1)+'\nL '+k.l.toFixed(1)+'  C '+k.c.toFixed(1)+
+            '\nHA  O '+h.o.toFixed(1)+'  C '+h.c.toFixed(1)+
+            (dmi.adx[idx]!==null ? '\nADX '+dmi.adx[idx].toFixed(1)+'  +DI '+dmi.diP[idx].toFixed(1)+'  −DI '+dmi.diM[idx].toFixed(1) : '\nADX warming up…');
+  ctip.textContent = txt;
+  ctip.style.opacity = 1;
+  var bx = cv.parentElement.clientWidth;
+  var left = Math.min(bx-190, Math.max(6, mx+14));
+  ctip.style.left = left+'px'; ctip.style.top = Math.max(6,my-20)+'px';
+});
+cv.addEventListener('mouseleave', function(){ ctip.style.opacity=0; });
+function bindChip(id,key,isMode){
+  var el = document.getElementById(id);
+  el.addEventListener('click', function(){
+    if(isMode){
+      chartState.mode = key;
+      document.getElementById('chipJP').classList.toggle('on', key==='jp');
+      document.getElementById('chipHA').classList.toggle('on', key==='ha');
+    } else {
+      chartState[key] = !chartState[key];
+      el.classList.toggle('on', chartState[key]);
+    }
+    drawChart(); markDone('m2');
+  });
+}
+bindChip('chipJP','jp',true); bindChip('chipHA','ha',true);
+bindChip('chipEMA','ema',false); bindChip('chipDMI','dmi',false); bindChip('chipCross','cross',false);
+
+/* ================= ADX gauge ================= */
+var adxRange = document.getElementById('adxRange');
+adxRange.addEventListener('input', function(){
+  var v = parseInt(adxRange.value,10);
+  document.getElementById('gmark').style.left = 'calc('+v+'% - 2px)';
+  var vd = document.getElementById('adxVerdict'), ad = document.getElementById('adxAdvice');
+  if(v<20){ vd.textContent='Absent / Weak Trend'; vd.className='verdict v-danger';
+    ad.textContent='Range-bound market. Trend strategies fail here — this is where whipsaws live. Stand aside or trade the range edges.'; }
+  else if(v<25){ vd.textContent='Trend Forming'; vd.className='verdict v-caution';
+    ad.textContent='Watchlist zone. Wait for confirmation: ADX must climb through the gate (25 for crude, 18 for FCPO) before you act.'; }
+  else if(v<50){ vd.textContent='Strong Trend'; vd.className='verdict v-safe';
+    ad.textContent='Green light for trend-following: MA crossovers, DMI crosses and Heikin Ashi continuation all work best here.'; }
+  else if(v<75){ vd.textContent='Very Strong Trend'; vd.className='verdict v-caution';
+    ad.textContent='Ride it but tighten trails — the market is heating up and corrections get violent.'; }
+  else { vd.textContent='Extremely Strong (Overheated)'; vd.className='verdict v-danger';
+    ad.textContent='Exhaustion territory. New entries here chase the top/bottom. Take profits, don\'t open.'; }
+  markDone('m3');
+});
+
+/* ================= risk calculator ================= */
+var ids = ['cEntry','cStop','cTarget','cMargin','cPoint'];
+function calc(){
+  var e=parseFloat(document.getElementById('cEntry').value)||0,
+      s=parseFloat(document.getElementById('cStop').value)||0,
+      t=parseFloat(document.getElementById('cTarget').value)||0,
+      mg=parseFloat(document.getElementById('cMargin').value)||1,
+      pv=parseFloat(document.getElementById('cPoint').value)||1;
+  var long = t >= e;
+  var riskPts = Math.abs(e-s), rewPts = Math.abs(t-e);
+  var riskRM = riskPts*pv, rewRM = rewPts*pv;
+  var pct = riskRM/mg*100, rr = riskRM>0 ? rewRM/riskRM : 0;
+  var maxRM = mg*0.01, maxPts = maxRM/pv;
+  var sugg = long ? e-maxPts : e+maxPts;
+  document.getElementById('oDir').textContent = long?'LONG':'SHORT';
+  document.getElementById('oRiskPts').textContent = riskPts.toFixed(1)+' pts';
+  document.getElementById('oRiskRM').textContent = 'RM '+riskRM.toLocaleString('en-MY',{maximumFractionDigits:0});
+  document.getElementById('oRiskPct').textContent = pct.toFixed(2)+'%';
+  document.getElementById('oRewRM').textContent = 'RM '+rewRM.toLocaleString('en-MY',{maximumFractionDigits:0});
+  document.getElementById('oRR').textContent = '1 : '+rr.toFixed(1);
+  document.getElementById('oSugg').textContent = sugg.toLocaleString('en-MY',{minimumFractionDigits:2,maximumFractionDigits:2});
+  document.getElementById('oLots').textContent = (riskPts>0 ? Math.max(1,Math.floor(maxPts/riskPts)) : 1)+' lot';
+  var vd = document.getElementById('calcVerdict'), nt = document.getElementById('calcNote');
+  if(pct<=1){ vd.className='verdict v-safe'; vd.textContent='✅ SAFE — within the 1% rule';
+    nt.textContent = rr>=2 ? 'Risk '+pct.toFixed(2)+'% with reward '+rr.toFixed(1)+'× risk. This is the discipline the course teaches.' : 'Risk is fine, but reward is under 2× risk — look for a better target.'; }
+  else if(pct<=2){ vd.className='verdict v-caution'; vd.textContent='⚠️ CAUTION — above 1%, below 2%';
+    nt.textContent='Move your stop to ≈ '+sugg.toFixed(2)+' (or trade smaller) to respect the 1% rule.'; }
+  else { vd.className='verdict v-danger'; vd.textContent='🛑 DANGER — this stop can hurt you';
+    nt.textContent='RM '+riskRM.toFixed(0)+' at risk = '+pct.toFixed(2)+'% of margin. The course trade that looked like this (10-pt stop, 3.1%) had to be fixed to 3 points before entry.'; }
+  markDone('m4');
+}
+ids.forEach(function(id){ document.getElementById(id).addEventListener('input', calc); });
+calc();
+
+/* ================= scenario simulator ================= */
+var SCEN = [
+ {t:'Scenario 1 of 5 — Sept 16, price 3,850',
+  chips:[['Heikin Ashi','4 consecutive green candles',1],['DMI','+DI crossed above −DI yesterday',1],['ADX','19.1 and rising',1],['Volume','+22% vs 7-day avg',1],['Calendar','September (pre-harvest)',1],['Risk plan','stop 3 pts = RM75 = 0.94%',1]],
+  ok:'long',
+  why:'All six gates pass: trend (ADX 19.1 ≥ 18), direction (fresh bullish DMI cross), candles (4 green HA), volume (+22%), calendar (September), risk (0.94% ≤ 1%). This is exactly the course\'s executed trade.',
+  src:'Bursa backtest 74.3% win rate on this gate set (BM_FCPO_Backtest_2023-2024_Q3).'},
+ {t:'Scenario 2 of 5 — Sept 22, price 3,841',
+  chips:[['Heikin Ashi','5 consecutive red candles',1],['DMI','−DI 24.1 above +DI 19.8',1],['ADX','16.2 — below the 18 gate',0],['Volume','+50% vs 7-day avg',1],['Calendar','September',1],['Risk plan','stop 2 pts = RM50',1]],
+  ok:'out',
+  why:'Direction, candles and volume all scream SHORT — but ADX 16.2 fails the trend gate. Below 18 (FCPO) / 20 (classic), the market is range-bound and crossovers are coin-flips. The Rakuten study puts false-signal rate at 42.1% in this zone.',
+  src:'Rakuten RS-FCPO-2025-087 p.12; slide "ADX, a gauge of trend strength".'},
+ {t:'Scenario 3 of 5 — Oct 14, price 3,902',
+  chips:[['Heikin Ashi','4 green candles',1],['DMI','bullish cross',1],['ADX','22.4 rising',1],['Volume','+30%',1],['Calendar','OCTOBER — harvest window',0],['Risk plan','stop 3 pts',1]],
+  ok:'out',
+  why:'A technically perfect long… in the one season FCPO trends die. MPOB records 83.1% of Sept-peak trades reversing during Oct–Dec. The calendar gate overrides every other gate.',
+  src:'MPOB Annual Report 2025 §4.2 p.89.'},
+ {t:'Scenario 4 of 5 — Sept 18, price 3,850',
+  chips:[['Heikin Ashi','only 2 green candles',0],['DMI','+DI above −DI',1],['ADX','18.7',1],['Volume','+15% vs 7-day avg',0],['Calendar','September',1],['Risk plan','stop 3 pts',1]],
+  ok:'out',
+  why:'Two gates fail: candles (need ≥3 consecutive HA candles) and volume (need ≥+20%). Early entries like this are how you pay for other people\'s confirmations. Wait one or two candles — the trade will still be there, or it was never real.',
+  src:'Course rule set (DIY Financier playbook, Module 5 checklist).'},
+ {t:'Scenario 5 of 5 — Sept 25, price 3,856',
+  chips:[['Heikin Ashi','bullish engulfing + 3 green',1],['DMI','bullish cross',1],['ADX','19.8',1],['Volume','+26%',1],['Calendar','September',1],['Risk plan','stop 10 pts = RM250 = 3.1%',0]],
+  ok:'out',
+  why:'Everything is beautiful except the risk gate: a 10-point stop risks RM250 = 3.1% of an RM8,000 margin — 3× over the 1% rule. As presented: NO-GO. Fix the stop to ≤3.2 points (≈3,852.80) and the same setup becomes the course\'s winning trade.',
+  src:'Bursa Margin Handbook 2026 §3.1 (RM25/pt, RM8k margin); course "Fixed" trade correction.'}
+];
+var scIdx = 0, scRight = 0, scDone = 0, scLocked = false;
+function renderScen(){
+  var s = SCEN[scIdx];
+  document.getElementById('scTitle').textContent = s.t;
+  var box = document.getElementById('scChips'); box.innerHTML = '';
+  s.chips.forEach(function(ch){
+    var d = document.createElement('div'); d.className='schip';
+    d.innerHTML = '<b>'+ch[0]+'</b>'+ch[1]+(ch[2]?'':' <span style="color:var(--red);font-weight:800">⚠</span>');
+    box.appendChild(d);
+  });
+  var fb = document.getElementById('scFb'); fb.className='fb'; fb.innerHTML='';
+  document.getElementById('scNext').style.display='none';
+  scLocked = false;
+}
+document.querySelectorAll('.answerrow [data-ans]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    if(scLocked) return; scLocked = true;
+    var ans = btn.getAttribute('data-ans'), s = SCEN[scIdx];
+    var correct = ans === s.ok;
+    if(correct) scRight++;
+    scDone++;
+    document.getElementById('scScore').textContent = 'Score: '+scRight+' / '+scDone;
+    var fb = document.getElementById('scFb');
+    var gateTxt = s.chips.map(function(ch){ return (ch[2]?'✅ ':'❌ ')+ch[0]+': '+ch[1]; }).join('<br>');
+    fb.className = 'fb show ' + (correct?'ok':'no');
+    fb.innerHTML = '<h4>'+(correct?'✅ Correct! ':'❌ Not quite — the playbook says: '+({long:'ENTER LONG',short:'ENTER SHORT',out:'STAY OUT'})[s.ok])+'</h4>'+
+      '<p style="font-size:14px">'+s.why+'</p>'+
+      '<ul><li>'+gateTxt+'</li></ul>'+
+      '<p style="font-size:12.5px;color:var(--muted)">📚 '+s.src+'</p>';
+    document.getElementById('scNext').style.display = scIdx<SCEN.length-1 ? 'inline-flex' : 'none';
+    markDone('m5');
+  });
+});
+document.getElementById('scNext').addEventListener('click', function(){ scIdx++; renderScen(); });
+renderScen();
+
+/* copy checklist */
+document.getElementById('copyChecklist').addEventListener('click', function(){
+  var txt = document.getElementById('checklist').textContent;
+  function done(){ document.getElementById('copyMsg').textContent='Copied! ✓'; setTimeout(function(){document.getElementById('copyMsg').textContent='';},2500); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done, done); }
+  else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); done(); }
+});
+
+/* ================= quiz ================= */
+var QUIZ = [
+ {q:'1. One 1-point move in an FCPO contract is worth…', o:['RM1','RM10','RM25','RM100'], a:2, e:'FCPO = 25 metric tonnes per lot, quoted in RM/tonne → 1 point = RM25. (Bursa Margin Handbook 2026 §3.1)'},
+ {q:'2. ADX reads 15. The market is most likely…', o:['In a strong uptrend','Range-bound / trendless','About to gap','In a strong downtrend'], a:1, e:'ADX below 20 = absent/weak trend. ADX measures strength, not direction — and below the gate, crossover strategies fail. (Slide "Assessing ADX value"; Rakuten RS-FCPO-2025-087)'},
+ {q:'3. Heikin Ashi candles are best used for…', o:['Spotting exact reversal tops','Seeing raw price gaps','Confirming trend continuation','Measuring volume'], a:2, e:'Slide comparison table: Japanese candles = reversals & gaps; Heikin Ashi = trend continuation with only 3 patterns.'},
+ {q:'4. Margin RM8,000, max risk 1%, RM25 per point. Maximum stop distance?', o:['1 point','3.2 points','8 points','32 points'], a:1, e:'RM8,000 × 1% = RM80; RM80 ÷ RM25 = 3.2 points. Round down to ~3 in practice.'},
+ {q:'5. −DI sitting above +DI tells you…', o:['Buyers are in control','Sellers are in control','Trend is strong','Volatility is falling'], a:1, e:'DMI slide: −DI > +DI = more downward pressure; look for shorts only. (Wilder, 1978)'},
+ {q:'6. Which month is the FCPO trend-trader\'s danger zone?', o:['March','June','October','January'], a:2, e:'Oct–Dec harvest window: 83.1% of Sept-peak trades reversed (MPOB AR2025 §4.2). Calendar gate says stay out.'},
+ {q:'7. ATR = 0.28. The course\'s whipsaw-resistant stop width is…', o:['0.14','0.28','0.42','0.84'], a:2, e:'1.5 × ATR = 0.42. The Rakuten study measured a 92.4% cut in false stops vs fixed stops at 1.5×ATR.'}
+];
+var qbox = document.getElementById('quizBox');
+QUIZ.forEach(function(item,qi){
+  var d = document.createElement('div'); d.className='qcard';
+  var html = '<p class="q">'+item.q+'</p>';
+  item.o.forEach(function(op,oi){
+    html += '<label class="opt" data-q="'+qi+'" data-o="'+oi+'"><input type="radio" name="q'+qi+'" value="'+oi+'">'+op+'</label>';
+  });
+  html += '<div class="expl" id="ex'+qi+'">'+item.e+'</div>';
+  d.innerHTML = html; qbox.appendChild(d);
+});
+document.getElementById('quizSubmit').addEventListener('click', function(){
+  var score = 0;
+  QUIZ.forEach(function(item,qi){
+    var sel = document.querySelector('input[name="q'+qi+'"]:checked');
+    var opts = document.querySelectorAll('.opt[data-q="'+qi+'"]');
+    opts.forEach(function(o){ o.classList.remove('right','wrong'); });
+    opts[item.a].classList.add('right');
+    if(sel){ var v = parseInt(sel.value,10); if(v===item.a) score++; else opts[v].classList.add('wrong'); }
+    document.getElementById('ex'+qi).classList.add('show');
+  });
+  document.getElementById('quizScore').textContent = 'You scored '+score+' / '+QUIZ.length + (score>=6?' — cleared to paper-trade! 🎉':' — review the modules above and retry.');
+  markDone('m6');
+});
+</script>
+</body>
+</html>
