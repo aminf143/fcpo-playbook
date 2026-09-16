@@ -404,7 +404,7 @@ footer h3{color:#fff;font-size:20px;margin-bottom:6px}
         <tr><th>Filter</th><th>Rule</th></tr>
         <tr><td>ADX gate</td><td>Only trade when ADX ≥ <b>18</b> (FCPO-calibrated; crude uses 25)</td></tr>
         <tr><td>Volume gate</td><td>Session volume ≥ <b>+20%</b> vs 7-day average</td></tr>
-        <tr><td>Calendar gate</td><td>No trend trades <b>Oct–Dec</b> harvest window (83.1% reversal rate, MPOB AR2025 §4.2)</td></tr>
+        <tr><td>Calendar gate</td><td>No trend trades <b>Oct–Dec</b> harvest window (83.1% reversal rate, MPOB AR2025 S4.2)</td></tr>
         <tr><td>News gate</td><td>Pause 1 hour before/after MPOB &amp; export reports</td></tr>
       </table>
     </div>
@@ -468,13 +468,13 @@ footer h3{color:#fff;font-size:20px;margin-bottom:6px}
   <h2>Every backtest figure, traced</h2>
   <p class="sub">As requested: no number in this playbook appears without a named source. Figures below are as cited in the course materials — always re-validate against live exchange data before risking money.</p>
 
-  <div class="srccard reveal"><b>Bursa Malaysia — Margin Handbook 2026, §3.1 (p.22)</b>
+  <div class="srccard reveal"><b>Bursa Malaysia — Margin Handbook 2026, S3.1 (p.22)</b>
     <div class="fig">FCPO: 1 lot = 25 MT · 1 point = RM25 · margin RM8,000–10,000 per lot</div>
     <small>bursamalaysia.com/regulation/handbooks/margin_handbook · used in Modules 1, 4, 5</small></div>
   <div class="srccard reveal"><b>Bursa Malaysia — Historical Data Portal, FCPO Dec contracts 2023–2024</b>
     <div class="fig">74.3% win rate across 1,287 trades meeting ADX &gt;18 + volume-spike criteria (file BM_FCPO_Backtest_2023-2024_Q3)</div>
     <small>bursamalaysia.com/market_information/historical_data · used in Modules 4, 5</small></div>
-  <div class="srccard reveal"><b>MPOB — Annual Report 2025, §4.2 (p.89)</b>
+  <div class="srccard reveal"><b>MPOB — Annual Report 2025, S4.2 (p.89)</b>
     <div class="fig">83.1% of September-peak trades reversed during Oct–Dec harvest months; avg drawdown 4.2%</div>
     <small>mpob.gov.my (AR2025) · used in Modules 4, 5 (calendar gate)</small></div>
   <div class="srccard reveal"><b>Rakuten Securities Research — Report RS-FCPO-2025-087 (p.12)</b>
@@ -810,7 +810,7 @@ var SCEN = [
   chips:[['Heikin Ashi','4 green candles',1],['DMI','bullish cross',1],['ADX','22.4 rising',1],['Volume','+30%',1],['Calendar','OCTOBER — harvest window',0],['Risk plan','stop 3 pts',1]],
   ok:'out',
   why:'A technically perfect long… in the one season FCPO trends die. MPOB records 83.1% of Sept-peak trades reversing during Oct–Dec. The calendar gate overrides every other gate.',
-  src:'MPOB Annual Report 2025 §4.2 p.89.'},
+  src:'MPOB Annual Report 2025 S4.2 p.89.'},
  {t:'Scenario 4 of 5 — Sept 18, price 3,850',
   chips:[['Heikin Ashi','only 2 green candles',0],['DMI','+DI above −DI',1],['ADX','18.7',1],['Volume','+15% vs 7-day avg',0],['Calendar','September',1],['Risk plan','stop 3 pts',1]],
   ok:'out',
@@ -820,7 +820,7 @@ var SCEN = [
   chips:[['Heikin Ashi','bullish engulfing + 3 green',1],['DMI','bullish cross',1],['ADX','19.8',1],['Volume','+26%',1],['Calendar','September',1],['Risk plan','stop 10 pts = RM250 = 3.1%',0]],
   ok:'out',
   why:'Everything is beautiful except the risk gate: a 10-point stop risks RM250 = 3.1% of an RM8,000 margin — 3× over the 1% rule. As presented: NO-GO. Fix the stop to ≤3.2 points (≈3,852.80) and the same setup becomes the course\'s winning trade.',
-  src:'Bursa Margin Handbook 2026 §3.1 (RM25/pt, RM8k margin); course "Fixed" trade correction.'}
+  src:'Bursa Margin Handbook 2026 S3.1 (RM25/pt, RM8k margin); course "Fixed" trade correction.'}
 ];
 var scIdx = 0, scRight = 0, scDone = 0, scLocked = false;
 function renderScen(){
@@ -868,12 +868,12 @@ document.getElementById('copyChecklist').addEventListener('click', function(){
 
 /* ================= quiz ================= */
 var QUIZ = [
- {q:'1. One 1-point move in an FCPO contract is worth…', o:['RM1','RM10','RM25','RM100'], a:2, e:'FCPO = 25 metric tonnes per lot, quoted in RM/tonne → 1 point = RM25. (Bursa Margin Handbook 2026 §3.1)'},
+ {q:'1. One 1-point move in an FCPO contract is worth…', o:['RM1','RM10','RM25','RM100'], a:2, e:'FCPO = 25 metric tonnes per lot, quoted in RM/tonne → 1 point = RM25. (Bursa Margin Handbook 2026 S3.1)'},
  {q:'2. ADX reads 15. The market is most likely…', o:['In a strong uptrend','Range-bound / trendless','About to gap','In a strong downtrend'], a:1, e:'ADX below 20 = absent/weak trend. ADX measures strength, not direction — and below the gate, crossover strategies fail. (Slide "Assessing ADX value"; Rakuten RS-FCPO-2025-087)'},
  {q:'3. Heikin Ashi candles are best used for…', o:['Spotting exact reversal tops','Seeing raw price gaps','Confirming trend continuation','Measuring volume'], a:2, e:'Slide comparison table: Japanese candles = reversals & gaps; Heikin Ashi = trend continuation with only 3 patterns.'},
  {q:'4. Margin RM8,000, max risk 1%, RM25 per point. Maximum stop distance?', o:['1 point','3.2 points','8 points','32 points'], a:1, e:'RM8,000 × 1% = RM80; RM80 ÷ RM25 = 3.2 points. Round down to ~3 in practice.'},
  {q:'5. −DI sitting above +DI tells you…', o:['Buyers are in control','Sellers are in control','Trend is strong','Volatility is falling'], a:1, e:'DMI slide: −DI > +DI = more downward pressure; look for shorts only. (Wilder, 1978)'},
- {q:'6. Which month is the FCPO trend-trader\'s danger zone?', o:['March','June','October','January'], a:2, e:'Oct–Dec harvest window: 83.1% of Sept-peak trades reversed (MPOB AR2025 §4.2). Calendar gate says stay out.'},
+ {q:'6. Which month is the FCPO trend-trader\'s danger zone?', o:['March','June','October','January'], a:2, e:'Oct–Dec harvest window: 83.1% of Sept-peak trades reversed (MPOB AR2025 S4.2). Calendar gate says stay out.'},
  {q:'7. ATR = 0.28. The course\'s whipsaw-resistant stop width is…', o:['0.14','0.28','0.42','0.84'], a:2, e:'1.5 × ATR = 0.42. The Rakuten study measured a 92.4% cut in false stops vs fixed stops at 1.5×ATR.'}
 ];
 var qbox = document.getElementById('quizBox');
